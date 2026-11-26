@@ -1,78 +1,26 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
-<a id="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
+# 2022 FIFA World Cup Prediction
 
+Predicts the outcome of every match in the 2022 FIFA World Cup, from the group stage through the final, using classifiers trained on international match results since the 2018 World Cup.
 
+Final project for CS 425 at the University of Tennessee, Knoxville. The full write-up is in [`425_Final_Project_Report.pdf`](425_Final_Project_Report.pdf) and the slides are in [`CS425 Final Project Video Slides.pdf`](CS425%20Final%20Project%20Video%20Slides.pdf).
 
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
+## How it works
 
-<h3 align="center">FIFA World Cup Data Analysis and Insights</h3>
-
-  <p align="center">
-    This project explores historical FIFA World Cup data, analyzing various aspects such as team performance, player statistics, and match outcomes. The goal is to uncover trends, visualize key insights, and provide a deeper understanding of how different factors influence tournament results.
-
-  </p>
-  
-</div>
-
-
-
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-    </li>
-    <li><a href="#results">Results</a></li>
-    <li><a href="#usage">Usage</a></li>
-
-  </ol>
-</details>
-
-
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-The analysis involves data cleaning, processing, and visualization techniques to extract meaningful insights from FIFA World Cup records. It covers:
-
-- Historical performance of teams
-
-- Player statistics and standout performances
-
-- Goal distributions across different tournaments
-
-- Impact of external factors like location and time on match outcomes
-
-- Comparison of winning strategies among top teams
-
-
+1. **Data**: [`international_matches.csv`](international_matches.csv) has international results with FIFA ranks and each team's mean offense, midfield, and defense ratings. Matches before the 2018 World Cup are dropped and missing ratings are filled with the column mean.
+2. **Features**: for each match, the difference between the two teams in offense, midfield, defense, and FIFA rank. The label is whether the home team won.
+3. **Models**: support vector machine, logistic regression, and a multi-layer perceptron (scikit-learn), compared on accuracy. Feature subsets were also compared to see which ratings mattered most.
+4. **Simulation**: the best model (an MLP using all four features) predicts win probabilities for every group stage match. Teams get expected points, the top two in each group advance, and the bracket is played out through the round of 16, quarterfinals, semifinals, and final. The full tournament was also simulated 1,000 times to count how often each team won.
 
 ## Results
 
-- Identified trends in team success over different decades
+- The models reached about **68 to 72% accuracy** on the training split. The MLP with all four features did best, around 72%. These numbers are training accuracy, so held-out accuracy is likely lower.
+- The model predicted an **Argentina vs. France final**, which is the final that actually happened. It picked France to win. Argentina won the real final on penalties.
 
-- Found key performance indicators that contribute to winning teams
+## How to run
 
-- Created visualizations highlighting goal patterns, top scorers, and historical trends
+```bash
+pip install pandas numpy scikit-learn matplotlib seaborn jupyter
+jupyter notebook worldcup22_prediction.ipynb
+```
 
-- Developed predictive models to analyze future tournament outcomes
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-This project serves as a resource for football analysts, sports enthusiasts, and data science practitioners interested in sports analytics. It can be expanded with additional datasets, deeper statistical modeling, or integrated with machine learning techniques for predictive insights.
-
-
-
-
+Run the cells from top to bottom. The dataset is included in the repo.
